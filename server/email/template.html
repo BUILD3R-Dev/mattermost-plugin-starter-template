@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Update Notification</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; padding: 20px; }
+        .container { background-color: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 5px; max-width: 600px; margin: auto; }
+        h1 { color: #333; }
+        p { color: #555; }
+        .footer { margin-top: 20px; font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ticket Update</h1>
+        <p>Dear Customer,</p>
+        <p>This is a notification that your ticket has been updated. Please review the changes and let us know if you have any questions.</p>
+        <p><strong>Ticket ID:</strong> {{TICKET_ID}}</p>
+        <p><strong>Status:</strong> {{TICKET_STATUS}}</p>
+        <p>Thank you,<br>The Support Team</p>
+        <div class="footer">
+            <p>This email was sent automatically. Please do not reply.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+.ticket-list {
+    padding: 15px;
+}
+
+.ticket-item {
+    border: 1px solid rgba(var(--center-channel-color-rgb), 0.12);
+    border-radius: 4px;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.status-indicator.open { background: #00c853; }
+.status-indicator.pending { background: #ffd600; }
+.status-indicator.closed { background: #d32f2f; }

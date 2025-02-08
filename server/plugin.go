@@ -35,6 +35,35 @@ type Plugin struct {
 	// configuration is the active plugin configuration. Consult getConfiguration and
 	// setConfiguration for usage.
 	configuration *configuration
+
+	// Add our services
+	ticketStore  TicketStore
+	emailService EmailService
+	smtpService  SMTPService
+	ticketService TicketService
+}
+
+// TicketStore handles database operations
+type TicketStore interface {
+	CreateTicket(ticket *Ticket) error
+	GetTicketByID(id string) (*Ticket, error)
+	UpdateTicketStatus(id string, status string) error
+}
+
+// EmailService handles email synchronization
+type EmailService interface {
+	StartEmailPolling() error
+	StopEmailPolling()
+}
+
+// SMTPService handles SMTP operations
+type SMTPService interface {
+	SendEmail(to string, subject string, body string) error
+}
+
+// TicketService handles ticket operations
+type TicketService interface {
+	// Add methods for ticket service
 }
 
 // OnActivate is invoked when the plugin is activated. If an error is returned, the plugin will be deactivated.
@@ -44,6 +73,49 @@ func (p *Plugin) OnActivate() error {
 	p.kvstore = kvstore.NewKVStore(p.client)
 
 	p.commandClient = command.NewCommandHandler(p.client)
+
+	// Initialize store
+	store, err := store.NewSQLStore(p.API)
+	if err != nil {
+		return fmt.Errorf("failed to initialize store: %v", err)
+	}
+	p.ticketStore = store
+
+	// Initialize email services
+	emailConfig := &email.imapConfig{
+		server:    p.configuration.EmailServer,
+		port:      p.configuration.EmailPort,
+		username:  p.configuration.EmailUsername,
+		password:  p.configuration.EmailPassword,
+		interval:  5 * time.Minute,
+	}
+	p.emailService = email.NewEmailService(p.ticketStore, p.API, emailConfig)
+
+	smtpConfig := &email.smtpConfig{
+		host:        p.configuration.SMTPHost,
+		port:        p.configuration.SMTPPort,
+		username:    p.configuration.SMTPUsername,
+		password:    p.configuration.SMTPPassword,
+		fromAddress: p.configuration.FromAddress,
+	}
+	p.smtpService = email.NewSMTPService(p.API, smtpConfig)
+
+	// Initialize ticket service
+	p.ticketService = tickets.NewTicketService(
+		p.ticketStore,
+		p.smtpService,
+		p.API,
+	)
+
+	// Register commands
+	if err := p.API.RegisterCommand(createTicketCommand()); err != nil {
+		return fmt.Errorf("failed to register command: %v", err)
+	}
+
+	// Start email polling
+	if err := p.emailService.StartEmailPolling(); err != nil {
+		return fmt.Errorf("failed to start email service: %v", err)
+	}
 
 	job, err := cluster.Schedule(
 		p.API,

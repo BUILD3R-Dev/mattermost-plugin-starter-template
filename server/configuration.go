@@ -18,6 +18,19 @@ import (
 // If you add non-reference types to your configuration struct, be sure to rewrite Clone as a deep
 // copy appropriate for your types.
 type configuration struct {
+    // IMAP
+    EmailServer       string `json:"emailServer"`
+    EmailPort         int    `json:"emailPort"`
+    EmailUsername     string `json:"emailUsername"`
+    EmailPassword     string `json:"emailPassword"`
+    SupportChannelID  string `json:"supportChannelID"`
+    
+    // SMTP
+    SMTPHost         string `json:"smtpHost"`
+    SMTPPort         int    `json:"smtpPort"`
+    SMTPUsername     string `json:"smtpUsername"`
+    SMTPPassword     string `json:"smtpPassword"`
+    FromAddress      string `json:"fromAddress"`
 }
 
 // Clone shallow copies the configuration. Your implementation may require a deep copy if
