@@ -1,6 +1,7 @@
 package kvstore
 
+// KVStore interface extended to support basic Get and Set operations.
 type KVStore interface {
-	// Define your methods here. This package is used to access the KVStore pluginapi methods.
-	GetTemplateData(userID string) (string, error)
+	Get(key string) (interface{}, error)
+	Set(key string, value string) error
 }

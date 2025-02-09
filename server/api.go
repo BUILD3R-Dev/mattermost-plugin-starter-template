@@ -18,7 +18,13 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 	apiRouter := router.PathPrefix("/api/v1").Subrouter()
 
 	apiRouter.HandleFunc("/hello", p.HelloWorld).Methods(http.MethodGet)
-
+	apiRouter.HandleFunc("/tickets", p.CreateTicket).Methods(http.MethodPost)
+	apiRouter.HandleFunc("/tickets/{ticketId}", p.UpdateTicket).Methods(http.MethodPut)
+	apiRouter.HandleFunc("/tickets", p.ListTickets).Methods(http.MethodGet)
+	apiRouter.HandleFunc("/emails", p.ProcessEmails).Methods(http.MethodPost)
+	apiRouter.HandleFunc("/tickets/{ticketId}/comment", p.AddComment).Methods(http.MethodPost)
+	apiRouter.HandleFunc("/tickets/{ticketId}", p.DeleteTicket).Methods(http.MethodDelete)
+	
 	router.ServeHTTP(w, r)
 }
 

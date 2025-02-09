@@ -1,26 +1,62 @@
 {
-    "id": "com.mattermost.plugin-starter-template",
-    "name": "Plugin Starter Template",
-    "description": "This plugin serves as a starting point for writing a Mattermost plugin.",
-    "homepage_url": "https://github.com/mattermost/mattermost-plugin-starter-template",
-    "support_url": "https://github.com/mattermost/mattermost-plugin-starter-template/issues",
-    "icon_path": "assets/starter-template-icon.svg",
-    "min_server_version": "6.2.1",
-    "server": {
-        "executables": {
-            "linux-amd64": "server/dist/plugin-linux-amd64",
-            "linux-arm64": "server/dist/plugin-linux-arm64",
-            "darwin-amd64": "server/dist/plugin-darwin-amd64",
-            "darwin-arm64": "server/dist/plugin-darwin-arm64",
-            "windows-amd64": "server/dist/plugin-windows-amd64.exe"
-        }
-    },
-    "webapp": {
-        "bundle_path": "webapp/dist/main.js"
-    },
-    "settings_schema": {
-        "header": "",
-        "footer": "",
-        "settings": []
+  "id": "com.mattermost.sample.ticketing",
+  "name": "Ticketing Plugin",
+  "description": "A Mattermost plugin that implements a ticketing system with email integration.",
+  "version": "0.1.0",
+  "min_server_version": "5.10.0",
+  "server": {
+    "executables": {
+      "darwin-amd64": "server/plugin",
+      "linux-amd64": "server/plugin",
+      "windows-amd64": "server/plugin.exe"
     }
+  },
+  "settings_schema": {
+    "header": "Ticketing System Settings",
+    "footer": "",
+    "settings": [
+      {
+        "key": "SupportEmail",
+        "display_name": "Support Email Address",
+        "type": "text",
+        "default": "support@domain.com",
+        "help_text": "Email address for ticket creation and updates"
+      },
+      {
+        "key": "SMTPServer",
+        "display_name": "SMTP Server",
+        "type": "text",
+        "default": "smtp.domain.com",
+        "help_text": "SMTP server for sending emails"
+      },
+      {
+        "key": "IMAPServer",
+        "display_name": "IMAP Server",
+        "type": "text",
+        "default": "imap.domain.com",
+        "help_text": "IMAP server for receiving emails"
+      },
+      {
+        "key": "EmailPort",
+        "display_name": "Email Port",
+        "type": "number",
+        "default": 587,
+        "help_text": "Port for email server connection"
+      },
+      {
+        "key": "EmailEncryption",
+        "display_name": "Email Encryption Method",
+        "type": "text",
+        "default": "STARTTLS",
+        "help_text": "Encryption method for email server"
+      },
+      {
+        "key": "APIEndpoint",
+        "display_name": "Ticket API Endpoint",
+        "type": "text",
+        "default": "/api/v1/tickets",
+        "help_text": "Endpoint for ticket management operations"
+      }
+    ]
+  }
 }
