@@ -1,0 +1,58 @@
+# Created by https://www.gitignore.io/api/node
+
+### Node ###
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# OS Files
+.DS_Store
+
+# VSCode project files
+.vscode
+*.code-workspace
+
+# golang
+go.work
+go.work.sum
+
+# Coverage directory used by tools like istanbul
+coverage
+.nyc_output
+
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Environment files
+.env
+
+# Dependency directory
+# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+webapp/node_modules
+webapp/dist
+webapp/pack
+dist
+package
+bin
+debug
+__debug_bin
+files
+*.boardarchive
+.eslintcache
+.vscode/settings.json
+# config.json is copied from app-config.json in the Makefile
+server/swagger/clients
+server/vendor
+.idea
+server/**/*.coverage
+./dist
+
+# notice
+.notice-work

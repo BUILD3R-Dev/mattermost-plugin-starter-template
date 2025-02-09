@@ -89,7 +89,7 @@ const config = {
     output: {
         devtoolNamespace: PLUGIN_ID,
         path: path.join(__dirname, '/dist'),
-        publicPath: '/',
+        publicPath: '/plugins/com.mattermost.sample.ticketing/',
         filename: 'main.js',
     },
     mode: (isDev) ? 'eval-source-map' : 'production',

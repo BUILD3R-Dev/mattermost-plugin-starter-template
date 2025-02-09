@@ -24,7 +24,12 @@ func (p *Plugin) ServeHTTP(c *plugin.Context, w http.ResponseWriter, r *http.Req
 	apiRouter.HandleFunc("/emails", p.ProcessEmails).Methods(http.MethodPost)
 	apiRouter.HandleFunc("/tickets/{ticketId}/comment", p.AddComment).Methods(http.MethodPost)
 	apiRouter.HandleFunc("/tickets/{ticketId}", p.DeleteTicket).Methods(http.MethodDelete)
-	
+
+	// Serve the webapp bundle at the root path
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "webapp/dist/main.js")
+	})
+
 	router.ServeHTTP(w, r)
 }
 
