@@ -11,9 +11,6 @@
       "windows-amd64": "server/plugin.exe"
     }
   },
-  "webapp": {
-    "bundle_path": "webapp/dist/main.js"
-  },
   "settings_schema": {
     "header": "Ticketing System Settings",
     "footer": "",
