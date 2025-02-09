@@ -9,6 +9,8 @@ MM_UTILITIES_DIR ?= ../mattermost-utilities
 DLV_DEBUG_PORT := 2346
 DEFAULT_GOOS := $(shell go env GOOS)
 DEFAULT_GOARCH := $(shell go env GOARCH)
+VERSION ?= 0.1.0
+# VERSION ?= $(shell git describe --tags --dirty --match="v*")
 
 export GO111MODULE=on
 
